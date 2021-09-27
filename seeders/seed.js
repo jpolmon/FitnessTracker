@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 const db = require('../models/Workout');
+//add the env
 
 mongoose.connect(
-  process.env.MONGODB_URI || 'mongodb+srv://jpolmon-admin:O3ft0ojjSXXmjLWo@cluster0.pgqht.mongodb.net/workoutDB?retryWrites=true&w=majority', {
+  process.env.MONGODB_URI || 'mongodb://localhost/workoutDB', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
