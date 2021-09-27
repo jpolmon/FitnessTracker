@@ -65,18 +65,11 @@ app.post('/api/workouts', async (req, res) => {
 
 app.put('/api/workouts/:id', async (req, res) => {
     try {
-        const updateWorkout = await Workouts.findOneAndUpdate(
+        await Workouts.findOneAndUpdate(
             { _id: req.params.id }, 
             { $push: { exercises: req.body } }, 
-            { new: true, runValidators: true },
-            function (error, success) {
-                if (error) {
-                    console.log(error);
-                } else {
-                    console.log(success);
-                }
-            });
-        res.status(200).json(updateWorkout);
+            { new: true, runValidators: true }
+        ).then((updateWorkout) => res.status(200).json(updateWorkout));        
     } catch (err) {
         console.log(err);
         res.status(400).json(err);
