@@ -68,6 +68,7 @@ app.put('/api/workouts/:id', async (req, res) => {
         const updateWorkout = await Workouts.findOneAndUpdate(
             { _id: req.params.id }, 
             { $push: { exercises: req.body } }, 
+            { new: true, runValidators: true },
             function (error, success) {
                 if (error) {
                     console.log(error);
