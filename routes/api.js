@@ -2,6 +2,7 @@ const express = require('express');
 const { Workouts } = require('../models/Workout');
 const mongoose = require("mongoose");
 const logger = require('morgan');
+const path = require('path');
 
 const app = express();
 
@@ -31,11 +32,28 @@ app.get('/api/workouts', (req, res) => {
         });
 });
 
-app.get('/api/workouts/range');
+app.get('/exercise', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../public/exercise.html'));
+});
 
-app.post('/exercise', async (req, res) => {
+app.get('/stats', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../public/stats.html'));
+});
+
+app.get('/api/workouts/range', (req, res) => {
+    Workouts.find({})
+        .then(dbWorkout => {
+            res.json(dbWorkout);
+            console.log(dbWorkout);
+        })
+        .catch(err => {
+            res.status(400).json(err);
+        });
+});
+
+app.post('/api/workouts', async (req, res) => {
     try {
-        const newWorkout = await Workouts.create(req.body);
+        const newWorkout = await Workouts.create({_id: req.params.id, ...req.body});
         res.status(200).json(newWorkout)
     } catch (err) {
         res.status(400).json(err)
