@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const db = require('../models/Workout');
-//add the env
+require('dotenv').config();
 
 mongoose.connect(
   process.env.MONGODB_URI || 'mongodb://localhost/workoutDB', {

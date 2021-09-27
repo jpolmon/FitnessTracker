@@ -1,5 +1,5 @@
 const express = require('express');
-const { Workouts } = require('../models/Workout');
+const { Workouts } = require('../models/workout.js');
 const mongoose = require("mongoose");
 const logger = require('morgan');
 const path = require('path');
