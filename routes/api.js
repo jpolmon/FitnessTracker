@@ -40,22 +40,23 @@ app.get('/stats', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../public/stats.html'));
 });
 
-app.get('/api/workouts/range', (req, res) => {
-    Workouts.find({})
-        .then(dbWorkout => {
-            res.json(dbWorkout);
-            console.log(dbWorkout);
-        })
-        .catch(err => {
-            res.status(400).json(err);
-        });
+app.get('/api/workouts/range', async (req, res) => {
+    try {
+        const dbWorkouts = await Workouts
+            .find({})
+            .sort({ day: -1 })
+            .limit(7);
+        res.status(200).json(dbWorkouts);
+    } catch (err) {
+        res.status(400).json(err);
+    } 
 });
 
 app.post('/api/workouts', async (req, res) => {
     try {
         const newWorkout = await Workouts.create({
             day: new Date(new Date().setDate(new Date().getDate())), 
-            exercises: req.body });
+            exercises: [] });
         res.status(200).json(newWorkout);
     } catch (err) {
         res.status(400).json(err);
