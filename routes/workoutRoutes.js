@@ -77,6 +77,7 @@ app.put('/api/workouts/:id', async (req, res) => {
             });
         res.status(200).json(updateWorkout);
     } catch (err) {
+        console.log(err);
         res.status(400).json(err);
     }
 });
