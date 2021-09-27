@@ -1,17 +1,17 @@
-const express = require('express');
+// const express = require('express');
 const { Workouts } = require('../models/workout.js');
-const mongoose = require("mongoose");
-const logger = require('morgan');
+// const mongoose = require("mongoose");
+// const logger = require('morgan');
 const path = require('path');
 
-const app = express();
+const app = require(`express`).Router();
 
-app.use(logger("dev"));
+// app.use(logger("dev"));
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
+// app.use(express.json());
 
-app.use(express.static("public"));
+// app.use(express.static("public"));
 
 // mongoose.connect(
 //     process.env.MONGODB_URI || 'mongodb://localhost/workoutDB', {
