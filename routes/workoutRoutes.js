@@ -1,25 +1,7 @@
-// const express = require('express');
 const { Workouts } = require('../models/workout.js');
-// const mongoose = require("mongoose");
-// const logger = require('morgan');
 const path = require('path');
 
 const app = require(`express`).Router();
-
-// app.use(logger("dev"));
-
-// app.use(express.urlencoded({ extended: true }));
-// app.use(express.json());
-
-// app.use(express.static("public"));
-
-// mongoose.connect(
-//     process.env.MONGODB_URI || 'mongodb://localhost/workoutDB', {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//     useCreateIndex: true,
-//     useFindAndModify: false
-// });
 
 app.get('/api/workouts', (req, res) => {
     Workouts.find({})
