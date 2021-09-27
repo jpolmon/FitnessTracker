@@ -53,10 +53,30 @@ app.get('/api/workouts/range', (req, res) => {
 
 app.post('/api/workouts', async (req, res) => {
     try {
-        const newWorkout = await Workouts.create({_id: req.params.id, ...req.body});
-        res.status(200).json(newWorkout)
+        const newWorkout = await Workouts.create({
+            day: new Date(new Date().setDate(new Date().getDate())), 
+            exercises: req.body });
+        res.status(200).json(newWorkout);
     } catch (err) {
-        res.status(400).json(err)
+        res.status(400).json(err);
+    }
+});
+
+app.put('/api/workouts/:id', async (req, res) => {
+    try {
+        const updateWorkout = await Workouts.findOneAndUpdate(
+            { _id: req.params.id }, 
+            { $push: { exercises: req.body } }, 
+            function (error, success) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log(success);
+                }
+            });
+        res.status(200).json(updateWorkout);
+    } catch (err) {
+        res.status(400).json(err);
     }
 });
 
